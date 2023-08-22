@@ -23,3 +23,51 @@
  docker run hello-world
  ```
  
+ ## Docker Hub
+ - this is a registry service on the cloud that allows you to download docker images that are builts by other communities. 
+ - we will leatn how to download and use the Jenkins Docker image from Docker hub
+ 
+ ```
+ docker pull jenkins/jenkins
+ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure jenkins/jenkins
+ ```
+ 
+ ## Docker image
+ docker images : to list of installed docker images
+ docker run centos: download and run docker image if it is not present
+ docker rmi ImageID: to remove a docker image. to idetify the image id use the command: docker images
+ docker rmi -f ImageID: force to delete image
+ 
+ ## Docker Container
+ 
+Container are instances of Docker images.
+Docker un is to run a container.
+
+to run a container in an inactive mode:
+```
+docker run -it centos /bin/bash
+then hit Ctrl+p and you will return to OS Shell.
+```
+
+to list of Container:
+```
+docker ps
+docker ps -a
+docker history ImageID 
+docker history centos
+```
+
+to stop a container
+```
+docker stop ContainerID
+```
+
+other command
+```
+docker rm ContainerID : to delete a container
+docker rm 9f215ed0b0d3 : example to delete container
+docker stats ContainerID : show stat of a container
+docker pause ContainerID : to pause a continer
+docker unpause ContainerID: to unpause a container
+docker kill ContainerID: to kill the processes in a running container
+```
