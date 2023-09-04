@@ -71,3 +71,59 @@ docker pause ContainerID : to pause a continer
 docker unpause ContainerID: to unpause a container
 docker kill ContainerID: to kill the processes in a running container
 ```
+
+## Docker File and docker build
+
+e.g. Dockerfile
+```
+#This is a sample Image 
+#This is a sample Image 
+FROM ubuntu 
+MAINTAINER minhducngo85@gmail.com 
+
+RUN apt-get update
+#RUN apt-get install nginx
+CMD [“echo”,”Image created”] 
+```
+
+## docker build
+Syntax: **docker build  -t ImageName:TagName dir
+Options:
+
+**-t** − is to mention a tag to the image
+**ImageName** − This is the name you want to give to your image.
+**TagName** − This is the tag you want to give to your image.
+**Dir** − The directory where the Docker File is present.
+
+
+e.g. 
+**docker build -t mydockerimage:0.1 .** - to build docker image with the Dockerfile above
+**docker images** -  to list of images
+
+to run created image:
+**docker run -it myimage:0.1 /bin/bash**
+
+## docker managing ports
+Some application in Docker runs on ports. You need to map the port pf the container to the port of the dockert host.
+Let's look at an example of how this can be achieved.
+In our example, we will donwload Jenkins container from Docker hub and map the Jenkins port to the port on the ducker hub.
+
+Step 1: open Docker hub and find the Jenkisn image
+Step 2: docker pull jenkins/jenkins:lts
+Step 6: docker inspect to understand what ports are exposed by the container.
+Syntax:
+```
+docker inspect image
+docker run -p hostPort:containerPort image
+```
+
+e.g.:  expose ports and run command
+``` 
+docker inspect jenkins/jenkins
+docker run -p 8081:8080 50001:50000 jenkins/jenkins
+let open web browser and enter localhost:8081
+```
+![Jenkins](jenkins.png)
+
+
+
