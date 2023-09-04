@@ -220,3 +220,104 @@ docker attach reca
 
 Step 4:<br/>
 env
+
+## Setting node.js
+
+Status: not working
+
+Step 1: open docker hub and find the node<br/>
+Step 2: run commd<br/>
+docker pull node<br/>
+Step 3:
+
+## Dockerizing SpringBoot Application
+
+### Step 1: create a Spring boot app and write the rest controller & build jar file
+
+package com.minhduc.docker.SpringBootDocker;
+```
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MyRestController {
+	@GetMapping("/messages")
+	public String getMessage() {
+		return "Hello from Docker!";
+	}
+}
+```
+
+pom.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.15</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.minhduc.docker</groupId>
+	<artifactId>SpringBootDocker</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>SpringBootDocker</name>
+	<description>Demo project for Spring Boot/ Docker</description>
+	<properties>
+		<java.version>11</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+```
+
+### Step 2: create Dockerfile and run build comamnd
+Dockerfile:
+```
+FROM openjdk:11
+MAINTAINER minhducngo85@gmail.com
+COPY SpringBootDocker-0.0.1.jar SpringBootDocker-0.0.1.jar
+ENTRYPOINT ["java","-jar","/SpringBootDocker-0.0.1.jar"]
+```
+
+Build command
+```
+docker build -t="springbootserver" .
+```
+
+## Step 3: run and open webbrowser
+
+
+docker run -p 8080:8080 springbootserver
+
+open web browser at http://localhost:8080/messages and you should see the message:
+
+Hello from Docker!
