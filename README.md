@@ -172,7 +172,7 @@ docker run -d -p 80:80 mywebserver:0.1
 
 ## Instructions commands
 
-###CMD Instruction
+### CMD Instruction
 to execute a command at runtime
 ```
 CMD command param1 
@@ -205,3 +205,15 @@ Synteax: ENV key value
 
 ### WORKDIR
 to set the working directory of the container
+
+## Container linking
+container linking allow multiple container to link with each other. It is better option to expose ports-
+
+Step 1:
+docker run --name=jenkinsa -d jenkins/jenkins
+Step 2:
+docker run --name=reca --link=jenkinsa:alias-src -it ubuntu:latest /bin/bash
+Step 2:
+docker attach reca
+Step 3:
+env
