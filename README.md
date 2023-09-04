@@ -209,11 +209,14 @@ to set the working directory of the container
 ## Container linking
 container linking allow multiple container to link with each other. It is better option to expose ports-
 
-Step 1:
+Step 1:<br/>
 docker run --name=jenkinsa -d jenkins/jenkins
-Step 2:
+
+Step 2:<br/>
 docker run --name=reca --link=jenkinsa:alias-src -it ubuntu:latest /bin/bash
-Step 2:
+
+Step 3:<br/>
 docker attach reca
-Step 3:
+
+Step 4:<br/>
 env
