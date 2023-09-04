@@ -170,4 +170,38 @@ docker run -d -p 80:80 mywebserver:0.1
 ```
 ![My Webserver](mywebserver.png)
 
+## Instructions commands
 
+###CMD Instruction
+to execute a command at runtime
+```
+CMD command param1 
+
+e.g.
+CMD ["echo", "Hello world"]
+```
+
+### entrypoint: like the CMD command but we cann pass the param from ducker run
+syntax:
+ENTRYPOINT command param1 
+
+e.g.
+
+step 1: Dockerfile:
+
+FROM ubuntu 
+MAINTAINER minhducngo85@gmail.com 
+ENTRYPOINT [“echo”]
+
+Step 2: docker build
+docker build -t="entrypointdemo" .
+
+step 3: run
+docker run entrypointdemo Hello World
+
+### ENV
+to set the environment variables in the containers
+Synteax: ENV key value
+
+### WORKDIR
+to set the working directory of the container
