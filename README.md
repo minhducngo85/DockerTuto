@@ -125,5 +125,49 @@ let open web browser and enter localhost:8081
 ```
 ![Jenkins](jenkins.png)
 
+## Private registries (private repositories)
+
+``` 
+docker run -d -p 5000:5000 --name registry registry:2
+docker ps
+docker tag registry:2 localhost:5000/centos
+docker push localhost:5000/centos
+
+delete the created container and pull download it again from localhost
+docker rmi --force 0030ba3d620c
+docker pull localhost:5000/centos:latest
+``` 
+
+
+## Building webserver from docker File
+
+Step 1: create dockerfile
+``` 
+FROM ubuntu
+RUN apt-get update -y
+RUN apt-get install -y apache2
+RUN apt-get install apache2-utils
+RUN apt-get clean
+EXPOSE 80
+CMD ["apache2ctl", "-D", "FOREGROUND"]
+``` 
+- create ad ubuntu image and install apache package
+- expose port 80 in the docker container to the docker host
+- finally, run the apache2 in the background
+
+Step 2: build docker file and tag image as "mywebserver"
+``` 
+docker build -t mywebserver:0.1 .
+
+if you get an error please try wth option --no-cache
+
+docker build --no-cache -t mywebserver:0.1 .
+```
+
+Step 3: run & aopen werbrwoser at localhost:80
+```
+docker run -d -p 80:80 mywebserver:0.1
+```
+![My Webserver](mywebserver.png)
 
 
